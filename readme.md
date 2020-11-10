@@ -2,8 +2,8 @@
 Frontend is handled with templates, bootstrap, and jQuery.   
 
 Requires: 
-    * Python 3.8.5   
-    * Flask 1.1.2   
+    *Python 3.8.5   
+    *Flask 1.1.2   
 
 jQuery and Bootstrap included in static/bootstrap/   
 
