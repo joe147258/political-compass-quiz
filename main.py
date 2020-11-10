@@ -20,7 +20,6 @@ def finish():
 
     return render_template("result.html", x_value=x_value, y_value=y_value)
 
-
 if __name__ == "__main__":
     app.run(debug=True);
 

@@ -15,3 +15,11 @@ def valid_params(x_value, y_value):
         return False
     else:
         return True
+
+# Method used to create an image that shows there standing on the political compass
+# param - x_value: int between 0 - 100, where to go on x axis
+# param - y_value: int between 0 - 100, where to go on y axix
+# returns: an image with their political standing.
+# TODO: check out https://pillow.readthedocs.io/en/stable/
+def manipulate_image(x_value, y_value):
+    return 0;
