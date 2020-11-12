@@ -1,3 +1,4 @@
+from PIL import Image, ImageDraw, ImageFont
 # util.py is a class used for static methods that are used throughout the project
 
 # Used to check if the params are valid
@@ -22,4 +23,21 @@ def valid_params(x_value, y_value):
 # returns: an image with their political standing.
 # TODO: check out https://pillow.readthedocs.io/en/stable/
 def manipulate_image(x_value, y_value):
-    return 0;
+    img = Image.open('static/images/compass.png')
+
+    # the image to draw in
+    draw = ImageDraw.Draw(img)
+
+    # text with new lines
+    text = 'HERE\nIS\nSOME\nTEXT'
+
+    # font type (ttf, ttc, etc.) and size - find os path for fonts (will differ on mac vs windows, etc.)
+    font = ImageFont.truetype('C:/Users/joe14/Desktop/impact.ttf', 170)
+
+    # draw text on image with xy coordinates
+    draw.text((10, 20), text=text, font=font)
+
+    # save a copy of image
+    img.save('static/images/image1.png')
+
+    return 0

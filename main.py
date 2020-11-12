@@ -18,8 +18,9 @@ def finish():
     if not util.valid_params(x_value, y_value):
         return redirect("/")
 
+    util.manipulate_image(1, 2)
     return render_template("result.html", x_value=x_value, y_value=y_value)
 
 if __name__ == "__main__":
-    app.run(debug=True);
+    app.run(debug=True)
 
