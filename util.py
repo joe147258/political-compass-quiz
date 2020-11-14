@@ -1,43 +1,49 @@
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw
+from threading import Thread
+from time import sleep
+import os
+import config
+
 # util.py is a class used for static methods that are used throughout the project
 
 # Used to check if the params are valid
-# param - x_value: int between 0 - 100
-# param - y_value: int between 0 - 100
+# param - x_value: int between 0 - 500
+# param - y_value: int between 0 - 544
 # returns: true if params are valid, otherwise false.
 def valid_params(x_value, y_value):
     if x_value is None or y_value is None:
         return False
     elif not isinstance(x_value, int) or not isinstance(y_value, int):
         return False
-    elif x_value > 100 or y_value > 100:
+    elif x_value > 500 or y_value > 544:
         return False
     elif x_value < 0 or y_value < 0:
         return False
     else:
         return True
 
-# Method used to create an image that shows there standing on the political compass
-# param - x_value: int between 0 - 100, where to go on x axis
-# param - y_value: int between 0 - 100, where to go on y axix
-# returns: an image with their political standing.
-# TODO: check out https://pillow.readthedocs.io/en/stable/
+# Method used to create political compass image
+# Saves an image as image x_value y_value .png
+# param - x_value: int between 0 - 500, where to go on x axis
+# param - y_value: int between 0 - 544, where to go on y axis
 def manipulate_image(x_value, y_value):
-    img = Image.open('static/images/compass.png')
+    with Image.open("static/images/compass.jpg") as im:
+        draw = ImageDraw.Draw(im)
+        print(im.size)
+        draw.regular_polygon((x_value, y_value, 10), 32, fill="#FF0000")
+        path = "static/images/image{0}{1}.png"
+        formattedPath = path.format(x_value, y_value)
+        im.save(formattedPath)
 
-    # the image to draw in
-    draw = ImageDraw.Draw(img)
+# Starts a thread that deletes the image.
+# param - image_path: The path of the image
+def delete_image(image_path):
+    thread = Thread(target=delete_image_thread, args=(image_path,))
+    thread.start()
 
-    # text with new lines
-    text = 'HERE\nIS\nSOME\nTEXT'
-
-    # font type (ttf, ttc, etc.) and size - find os path for fonts (will differ on mac vs windows, etc.)
-    font = ImageFont.truetype('C:/Users/joe14/Desktop/impact.ttf', 170)
-
-    # draw text on image with xy coordinates
-    draw.text((10, 20), text=text, font=font)
-
-    # save a copy of image
-    img.save('static/images/image1.png')
-
-    return 0
+# Waits x seconds before deleting an image (enough time to load the page)
+# param - image_path: The path of the image
+def delete_image_thread(image_path):
+    sleep(config.delete_time())
+    print(image_path)
+    os.remove(image_path)

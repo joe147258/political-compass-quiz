@@ -1,12 +1,14 @@
-# Simple Political Compass Quiz written with Python's flask.   
-Frontend is handled with templates, bootstrap, and jQuery.   
+# Simple Political Compass Quiz   
 
-Requires: 
+## About
+A small political compass quiz project to test Python web and image manipulation libraries.   
+
+## Technologies used:
 * Python 3.8.5+  
 * Flask 1.1.2+   
 * Pillow 8.0.1+
 
-jQuery and Bootstrap included in static/bootstrap/   
+Front-end is handled with Bootstrap.
 
 ### Contact   
 jldphillips@gmail.com

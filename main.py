@@ -18,8 +18,15 @@ def finish():
     if not util.valid_params(x_value, y_value):
         return redirect("/")
 
-    util.manipulate_image(1, 2)
-    return render_template("result.html", x_value=x_value, y_value=y_value)
+    util.manipulate_image(x_value, y_value)
+    path = "static/images/image{0}{1}.png"
+    formattedPath = path.format(x_value, y_value)
+
+    # Starts a thread and deleted the image after X seconds
+    # X chosen in config.json
+    util.delete_image(formattedPath)
+
+    return render_template("result.html", compass_image = formattedPath)
 
 if __name__ == "__main__":
     app.run(debug=True)
