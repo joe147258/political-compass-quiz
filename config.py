@@ -14,7 +14,6 @@ def x_movement():
 
 def y_movement():
     return config()["y_movement"]
-
-    
+ 
 def delete_time():
     return config()["delete_time"]

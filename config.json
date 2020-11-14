@@ -1,5 +1,10 @@
 {
     "delete_time": 2,
     "x_movement": 10,
-    "y_movement": 10
+    "y_movement": 10,
+    "question_list": {
+        "question_1": { "question_text":"eco question", "answer":30, "type":"economic"},
+        "question_2": { "question_text":"socio question", "answer":30, "type":"social"},
+        "question_3": { "question_text":"socio question", "answer":30, "type":"social"}
+    }
 }

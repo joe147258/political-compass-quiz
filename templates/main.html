@@ -3,12 +3,52 @@
 <head>
     <!--Bootstrap-->
     <link href="{{ url_for('static', filename='bootstrap/bootstrap.min.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{ url_for('static', filename='css/main.css')}}" rel="stylesheet"/>
     <title>Politcal Compass Test</title>
 </head>
 <body>
-    <h1>Main</h1>
+    <div class="m-auto main-container">
+        <div class="p-3 mb-2 bg-primary text-white text-center">
+            <h3>Political Compass Quiz</h3>
+        </div>
+        <div id="intro-text" class="text-black p-3">
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                <div class="text-center">
+                    <button class="btn btn-primary" onclick="startQuiz()">Click here to begin</button>
+                </div>
+            </p>
+        </div>
+        <div id="question-container" class="text-black text-left p-3">
+            <div>
+            <div class="d-inline-block text-left">
+                <h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?</h5>
+                <label class="d-block"><input type="radio" name="question-1" checked> Strongly Agree</label>
+                <label class="d-block"><input type="radio" name="question-1"> Agree</label>
+                <label class="d-block"><input type="radio" name="question-1"> Neutral</label>
+                <label class="d-block"><input type="radio" name="question-1"> Disagree</label>
+                <label class="d-block"><input type="radio" name="question-1"> Strongly Disagree</label>
+            </div>
+        </div>
+    </div>
 </body>
 <!--Bootstrap and jQuery-->
 <script src="{{ url_for('static', filename='bootstrap/jquery-3.5.1.min.js')}}"></script>
 <script src="{{ url_for('static', filename='bootstrap/bootstrap.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/main.js')}}"></script>
+<script>
+    let jsonData = "{{ config_json }}";
+
+    let symbols = (jsonData.match(new RegExp("&#39;", "g")) || []).length;
+
+    for (let i = 0; i < symbols; i++) {
+        jsonData = jsonData.replace("&#39;", "\"");
+    }
+    
+    console.log(jsonData);
+</script>
 </html>

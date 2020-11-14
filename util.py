@@ -5,6 +5,7 @@ import os
 import config
 
 # util.py is a class used for static methods that are used throughout the project
+# Created to keep logic out of main.py
 
 # Used to check if the params are valid
 # param - x_value: int between 0 - 500
@@ -29,9 +30,8 @@ def valid_params(x_value, y_value):
 def manipulate_image(x_value, y_value):
     with Image.open("static/images/compass.jpg") as im:
         draw = ImageDraw.Draw(im)
-        print(im.size)
         draw.regular_polygon((x_value, y_value, 10), 32, fill="#FF0000")
-        path = "static/images/image{0}{1}.png"
+        path = "static/images/image{0}{1}.png" # Save it as png because JPEG compression is bad.
         formattedPath = path.format(x_value, y_value)
         im.save(formattedPath)
 
@@ -45,5 +45,4 @@ def delete_image(image_path):
 # param - image_path: The path of the image
 def delete_image_thread(image_path):
     sleep(config.delete_time())
-    print(image_path)
     os.remove(image_path)

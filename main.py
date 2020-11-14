@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request, redirect
 import util
+import config
 
 app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render_template("main.html");
+    print(config.config())
+    return render_template("main.html", config_json = config.config());
 
 @app.route("/finish")
 def finish():
