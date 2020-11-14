@@ -41,14 +41,6 @@
 <script src="{{ url_for('static', filename='bootstrap/bootstrap.min.js')}}"></script>
 <script src="{{ url_for('static', filename='js/main.js')}}"></script>
 <script>
-    let jsonData = "{{ config_json }}";
-
-    let symbols = (jsonData.match(new RegExp("&#39;", "g")) || []).length;
-
-    for (let i = 0; i < symbols; i++) {
-        jsonData = jsonData.replace("&#39;", "\"");
-    }
-    
-    console.log(jsonData);
+    loadJson("{{ config_json }}");
 </script>
 </html>
