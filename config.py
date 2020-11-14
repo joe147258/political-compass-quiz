@@ -17,3 +17,6 @@ def y_movement():
  
 def delete_time():
     return config()["delete_time"]
+
+def intro_text():
+    return config()["site_info"]["intro_text"]

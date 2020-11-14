@@ -14,10 +14,6 @@ function startQuiz() {
     loadQuestions()
 }
 
-
-
-
-
 /* -----Private functions----- */
 
 function loadQuestions() {
@@ -31,7 +27,8 @@ function loadJson(jsonData){
     for (let i = 0; i < symbols; i++) {
         jsonData = jsonData.replace("&#39;", "\"");
     }
-    jsonConfig = jsonData
+
+    jsonConfig = JSON.parse(jsonData);
 }
 
 
