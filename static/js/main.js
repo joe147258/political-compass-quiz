@@ -13,6 +13,9 @@ var currentQuestionCounter = 0;
 // The map key is just the index on the json array
 // values are: ans: -2 up to 2 (strongly disagree upto strongly agree. 0 is neutral).
 // Second value is type of question either: economic(x on axis) or social(y on axis)
+// third value is sway. Sway is if they agree they go towards the sway.
+// sway should be left/right for economic and auth/lib for social.
+// behaviour is undefined if that is not met.
 var answerMap = new Map();
 
 /* -----Functions called from HTML----- */
@@ -62,36 +65,70 @@ function submitAnswer() {
     //stop the user messing this up
     $("button").attr('disabled','disabled');
     $("input").attr('disabled','disabled');
+    setRadioAnswer(0);
+
     console.log(answerMap);
     for(let i = 0; i < answerMap.size; i++) {
         if(answerMap.get(i).type == "social") {
             switch(parseInt(answerMap.get(i).ans)) {
                 case -2:
-                    YScore -= jsonConfig.big_y_movement;
+                    if (answerMap.get(i).sway == "auth") {
+                        YScore += jsonConfig.big_y_movement;
+                    } else {
+                        YScore -= jsonConfig.big_y_movement;
+                    }
                     break;
                 case -1:
-                    YScore -= jsonConfig.small_y_movement;
+                    if (answerMap.get(i).sway == "auth") {
+                        YScore += jsonConfig.small_y_movement;
+                    } else {
+                        YScore -= jsonConfig.small_y_movement;
+                    }
                     break;
                 case 1:
-                    YScore += jsonConfig.small_y_movement;
+                    if (answerMap.get(i).sway == "auth") {
+                        YScore -= jsonConfig.big_y_movement;
+                    } else {
+                        YScore += jsonConfig.big_y_movement;
+                    }
                     break;
                 case 2:
-                    YScore += jsonConfig.big_y_movement;
+                    if (answerMap.get(i).sway == "auth") {
+                        YScore -= jsonConfig.big_y_movement;
+                    } else {
+                        YScore += jsonConfig.big_y_movement;
+                    }
                     break;
             }
         } else if(answerMap.get(i).type == "economic") {
             switch(parseInt(answerMap.get(i).ans)) {
                 case -2:
-                    XScore -= jsonConfig.big_x_movement;
+                    if (answerMap.get(i).sway == "left") {
+                        XScore += jsonConfig.big_y_movement;
+                    } else {
+                        XScore -= jsonConfig.big_y_movement;
+                    }
                     break;
                 case -1:
-                    XScore -= jsonConfig.small_x_movement;
+                    if (answerMap.get(i).sway == "left") {
+                        XScore += jsonConfig.small_y_movement;
+                    } else {
+                        XScore -= jsonConfig.small_y_movement;
+                    }
                     break;
                 case 1:
-                    XScore += jsonConfig.small_x_movement;
+                    if (answerMap.get(i).sway == "left") {
+                        XScore -= jsonConfig.big_y_movement;
+                    } else {
+                        XScore += jsonConfig.big_y_movement;
+                    }
                     break;
                 case 2:
-                    XScore += jsonConfig.big_x_movement;
+                    if (answerMap.get(i).sway == "left") {
+                        XScore -= jsonConfig.big_y_movement;
+                    } else {
+                        XScore += jsonConfig.big_y_movement;
+                    }
                     break;
             }
         }
@@ -112,7 +149,7 @@ function loadQuestions() {
     $("#question-counter-max").text(jsonConfig.question_list.length);
 
     for(let i = 0; i < jsonConfig.question_list.length; i++) {
-        answerMap.set(i, {ans: 0, type: jsonConfig.question_list[i].type})
+        answerMap.set(i, {ans: 0, type: jsonConfig.question_list[i].type, sway: jsonConfig.question_list[i].sway})
     } 
 }
 
