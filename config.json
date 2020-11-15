@@ -1,12 +1,14 @@
 {
-    "delete_time": 2,
-    "x_movement": 10,
-    "y_movement": 10,
-    "question_list": {
-        "question_1": { "question_text":"eco question", "answer":30, "type":"economic"},
-        "question_2": { "question_text":"socio question", "answer":30, "type":"social"},
-        "question_3": { "question_text":"socio question", "answer":30, "type":"social"}
-    },
+    "image_delete_time": 2,
+    "small_x_movement": 10,
+    "small_y_movement": 10,
+    "big_x_movement": 20,
+    "big_y_movement": 20,
+    "question_list": [ 
+        { "question_text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?", "type":"economic"}, 
+        { "question_text":"Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident?", "type":"social"},
+        { "question_text":"Enim ad minim veniam, quis nostrud?", "type":"social"} 
+    ],
     "site_info": {
         "intro_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     }

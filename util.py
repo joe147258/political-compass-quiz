@@ -44,5 +44,5 @@ def delete_image(image_path):
 # Waits x seconds before deleting an image (enough time to load the page)
 # param - image_path: The path of the image
 def delete_image_thread(image_path):
-    sleep(config.delete_time())
+    sleep(config.image_delete_time())
     os.remove(image_path)

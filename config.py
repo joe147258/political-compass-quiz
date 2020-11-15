@@ -15,8 +15,8 @@ def x_movement():
 def y_movement():
     return config()["y_movement"]
  
-def delete_time():
-    return config()["delete_time"]
+def image_delete_time():
+    return config()["image_delete_time"]
 
 def intro_text():
     return config()["site_info"]["intro_text"]

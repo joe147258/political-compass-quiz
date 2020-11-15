@@ -20,16 +20,21 @@
             </p>
         </div>
         <div id="question-container" class="text-black text-left p-3">
-            <div>
-            <div class="d-inline-block text-left">
-                <h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?</h5>
-                <label class="d-block"><input type="radio" name="question-1"> Strongly Agree</label>
-                <label class="d-block"><input type="radio" name="question-1"> Agree</label>
-                <label class="d-block"><input type="radio" name="question-1" checked> Neutral</label>
-                <label class="d-block"><input type="radio" name="question-1"> Disagree</label>
-                <label class="d-block"><input type="radio" name="question-1"> Strongly Disagree</label>
+            <div class="d-inline-block text-left mb-5">
+                <h5 id="question-title">Question Title</h5>
+                <label class="d-block"><input id="SA" type="radio" name="question-radio" value="2"> Strongly Agree</label>
+                <label class="d-block"><input id="A" type="radio" name="question-radio" value="1"> Agree</label>
+                <label class="d-block"><input id="neutral" type="radio" name="question-radio" value="0" checked> Neutral</label>
+                <label class="d-block"><input id="D" type="radio" name="question-radio" value="-1"> Disagree</label>
+                <label class="d-block"><input id="SD" type="radio" name="question-radio" value="-2"> Strongly Disagree</label>
             </div>
-        </div>
+            <p class="text-center font-weight-bold p-3">
+                <span id="question-counter">0</span> / <span id="question-counter-max">0</span>
+            </p>
+            <div class="btn-group btn-block div-footer">
+                <button type="button" class="btn btn-primary square" onclick="previousQuestion()">Back</button>
+                <button type="button" class="btn btn-primary square" onclick="nextQuestion()">Next</button>
+            </div>
     </div>
 </body>
 <!--Bootstrap and jQuery-->
