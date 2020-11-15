@@ -9,11 +9,11 @@ var jsonConfig;
 // Current question.
 var currentQuestionCounter = 0;
 
-// Answer list array. At the start it 
-// is filled with 0 of how many questions
-// 0 = neutral. 1 = agree. 2 = strongly agree.
-//-1 = disagree. -2 = strongly disagree.
-var answerList = [];
+// Map that stores the users answers.
+// The map key is just the index on the json array
+// values are: ans: -2 up to 2 (strongly disagree upto strongly agree. 0 is neutral).
+// Second value is type of question either: economic(x on axis) or social(y on axis)
+var answerMap = new Map();
 
 /* -----Functions called from HTML----- */
 
@@ -28,14 +28,24 @@ function nextQuestion() {
     if(currentQuestionCounter > jsonConfig.question_list.length - 1) {
         currentQuestionCounter = jsonConfig.question_list.length - 1;
         return 0;
-    } 
+    }
+
+    if(currentQuestionCounter >= jsonConfig.question_list.length - 1) {
+        $("#next-btn").hide();
+        $("#submit-btn").show();
+    }
 
     $("#question-title").text(jsonConfig.question_list[currentQuestionCounter].question_text);
     $("#question-counter").text(currentQuestionCounter + 1);
-    setRadioAnswer(answerList[currentQuestionCounter]);
+    setRadioAnswer(answerMap.get(currentQuestionCounter).ans);
 }
 
 function previousQuestion() {
+    if (currentQuestionCounter == jsonConfig.question_list.length - 1) {
+        $("#next-btn").show();
+        $("#submit-btn").hide();
+    }
+
     currentQuestionCounter--;
     if(currentQuestionCounter < 0) {
         currentQuestionCounter = 0;
@@ -45,12 +55,53 @@ function previousQuestion() {
     $("#question-title").text(jsonConfig.question_list[currentQuestionCounter].question_text);
     $("#question-counter").text(currentQuestionCounter + 1);
 
-    setRadioAnswer(answerList[currentQuestionCounter]);
+    setRadioAnswer(answerMap.get(currentQuestionCounter).ans);
+}
+
+function submitAnswer() {
+    //stop the user messing this up
+    $("button").attr('disabled','disabled');
+    $("input").attr('disabled','disabled');
+    console.log(answerMap);
+    for(let i = 0; i < answerMap.size; i++) {
+        if(answerMap.get(i).type == "social") {
+            switch(parseInt(answerMap.get(i).ans)) {
+                case -2:
+                    YScore -= jsonConfig.big_y_movement;
+                    break;
+                case -1:
+                    YScore -= jsonConfig.small_y_movement;
+                    break;
+                case 1:
+                    YScore += jsonConfig.small_y_movement;
+                    break;
+                case 2:
+                    YScore += jsonConfig.big_y_movement;
+                    break;
+            }
+        } else if(answerMap.get(i).type == "economic") {
+            switch(parseInt(answerMap.get(i).ans)) {
+                case -2:
+                    XScore -= jsonConfig.big_x_movement;
+                    break;
+                case -1:
+                    XScore -= jsonConfig.small_x_movement;
+                    break;
+                case 1:
+                    XScore += jsonConfig.small_x_movement;
+                    break;
+                case 2:
+                    XScore += jsonConfig.big_x_movement;
+                    break;
+            }
+        }
+    }
+    window.location.href = "http://127.0.0.1:5000/finish?x=" + XScore + "&y=" + YScore;
 }
 
 $('input:radio[name="question-radio"]').change(
     function(){
-        answerList[currentQuestionCounter] = $('input[name="question-radio"]:checked').val();
+        answerMap.get(currentQuestionCounter).ans = $('input[name="question-radio"]:checked').val();
     });
 
 /* -----Private functions----- */
@@ -61,7 +112,7 @@ function loadQuestions() {
     $("#question-counter-max").text(jsonConfig.question_list.length);
 
     for(let i = 0; i < jsonConfig.question_list.length; i++) {
-        answerList.push(0);
+        answerMap.set(i, {ans: 0, type: jsonConfig.question_list[i].type})
     } 
 }
 
@@ -84,7 +135,6 @@ function setRadioAnswer(ans) {
             $('#A').prop('checked', true);
             break;
         case 2:
-            console.log("hurrr");
             $('#SA').prop('checked', true);
             break;
     }
@@ -94,6 +144,7 @@ function setRadioAnswer(ans) {
 // replaces quote symbol from server to actual quotes
 function loadJson(jsonData){
     //let symbols = (jsonData.match(new RegExp("&#39;", "g")) || []).length;
+    //jsonData = encodeURI(jsonData);
     jsonData = jsonData.replaceAll("&#39;", "\"");
     console.log(jsonData);
     jsonConfig = JSON.parse(jsonData);

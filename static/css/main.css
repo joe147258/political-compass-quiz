@@ -30,6 +30,9 @@
 #question-title {
     min-height: 96px;
 }
+#submit-btn {
+    display: none;
+}
 
 /* ---Bootstrap overrides--- */
 

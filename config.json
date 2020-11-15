@@ -1,13 +1,14 @@
 {
     "image_delete_time": 2,
-    "small_x_movement": 10,
-    "small_y_movement": 10,
-    "big_x_movement": 20,
-    "big_y_movement": 20,
+    "small_x_movement": 20,
+    "small_y_movement": 20,
+    "big_x_movement": 30,
+    "big_y_movement": 30,
     "question_list": [ 
-        { "question_text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?", "type":"economic"}, 
-        { "question_text":"Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident?", "type":"social"},
-        { "question_text":"Enim ad minim veniam, quis nostrud?", "type":"social"} 
+        { "question_text":"Welfare bad", "type":"economic"}, 
+        { "question_text":"Tax bad", "type":"economic"}, 
+        { "question_text":"Govt Bad", "type":"social"},
+        { "question_text":"Free Market good", "type":"social"} 
     ],
     "site_info": {
         "intro_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
