@@ -133,7 +133,7 @@ function submitAnswer() {
             }
         }
     }
-    window.location.href = "http://127.0.0.1:5000/finish?x=" + XScore + "&y=" + YScore;
+    window.location.href = "http://127.0.0.1:5000/finish-quiz?x=" + XScore + "&y=" + YScore;
 }
 
 $('input:radio[name="question-radio"]').change(

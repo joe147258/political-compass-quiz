@@ -2,7 +2,7 @@ from PIL import Image, ImageDraw
 from threading import Thread
 from time import sleep
 import os
-import config
+from utilities import config
 
 # util.py is a class used for static methods that are used throughout the project
 # Created to keep logic out of main.py

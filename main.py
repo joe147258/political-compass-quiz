@@ -1,14 +1,16 @@
 from flask import Flask, render_template, request, redirect
-import util
-import config
+from utilities import util
+from utilities import config
+from controller.admin_controller import admin_controller
 
 app = Flask(__name__)
+app.register_blueprint(admin_controller)
 
 @app.route("/")
 def home():
     return render_template("main.html", config_json = config.config(), intro_text = config.intro_text());
 
-@app.route("/finish")
+@app.route("/finish-quiz")
 def finish():
     try:
         x_value = int(request.args.get('x'))
