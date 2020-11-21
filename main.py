@@ -9,8 +9,11 @@ login_manager = LoginManager()
 app = Flask(__name__)
 login_manager.init_app(app)
 app.secret_key = 'key'
+
+# Handles the quiz mappings and logic
 app.register_blueprint(quiz_controller)
 
+# Admin Page access
 users = { config.admin_name():{'pw':config.admin_password()} }
 
 class User(UserMixin):
