@@ -3,6 +3,7 @@ from threading import Thread
 from time import sleep
 import os
 from utilities import config
+from hashlib import sha256
 
 # util.py is a class used for static methods that are used throughout the project
 # Created to keep logic out of main.py
@@ -46,3 +47,8 @@ def delete_image(image_path):
 def delete_image_thread(image_path):
     sleep(config.image_delete_time())
     os.remove(image_path)
+
+def hash_string(to_hash):
+    hash_object = sha256(str.encode(to_hash))
+    return_value = hash_object.hexdigest()
+    return return_value
