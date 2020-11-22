@@ -3,7 +3,8 @@ from utilities import util
 from utilities import config
 
 quiz_controller = Blueprint('quiz_controller', __name__, template_folder='templates')
-
+# Constants that are used to ensure data
+# coming from the form is valid.
 CONST_ECONOMIC = ['left', 'right']
 CONST_SOCIAL = ['lib', 'auth']
 

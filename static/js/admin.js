@@ -1,5 +1,4 @@
 $('#type_select').change(function(){
-
     if($('#type_select').val() == 'social') {
         $('#sway1').val('auth');
         $('#sway1').text('Auth');
@@ -12,23 +11,19 @@ $('#type_select').change(function(){
         $('#sway2').val('right');
         $('#sway2').text('Right');
     }
-
 })
 
 $("#new_ques").submit(function(e) {
-
-    e.preventDefault(); // avoid to execute the actual submit of the form.
-
+    e.preventDefault(); 
     var form = $(this);
-    var url = form.attr('action');
-    
     $.ajax({
            type: "POST",
            url: "/submit-question",
-           data: form.serialize(), // serializes the form's elements.
+           data: form.serialize(), 
            success: function(data)
            {
-               alert(data.success); // show response from the php script.
+               alert(data.success); 
+               $("table").load(" table > *");
            }
          });
 });
