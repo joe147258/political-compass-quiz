@@ -46,7 +46,8 @@ def request_loader(request):
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form.get('username')
+        username = request.form.get('username').lower()
+        print(username)
         try:
             if util.hash_string(request.form.get('pw')) == users[username]['pw']:
                 user = User()
