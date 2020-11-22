@@ -61,7 +61,8 @@ def login():
 @app.route('/admin')
 @flask_login.login_required
 def admin():
-    return render_template('admin.html')
+    question_list = config.question_list()
+    return render_template('admin.html', len = len(question_list), question_list = question_list)
 
 @app.route('/logout')
 def logout():
@@ -72,6 +73,6 @@ def logout():
 def unauthorized_callback():
     return redirect('/login')
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True)
 

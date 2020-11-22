@@ -29,10 +29,10 @@ def valid_params(x_value, y_value):
 # param - x_value: int between 0 - 500, where to go on x axis
 # param - y_value: int between 0 - 544, where to go on y axis
 def manipulate_image(x_value, y_value):
-    with Image.open("static/images/compass.jpg") as im:
+    with Image.open('static/images/compass.jpg') as im:
         draw = ImageDraw.Draw(im)
-        draw.regular_polygon((x_value, y_value, 10), 32, fill="#FF0000")
-        path = "static/images/image{0}{1}.png" # Save it as png because JPEG compression is bad.
+        draw.regular_polygon((x_value, y_value, 10), 32, fill='#FF0000')
+        path = 'static/images/image{0}{1}.png' # Save it as png because JPEG compression is bad.
         formattedPath = path.format(x_value, y_value)
         im.save(formattedPath)
 
@@ -52,3 +52,13 @@ def hash_string(to_hash):
     hash_object = sha256(str.encode(to_hash))
     return_value = hash_object.hexdigest()
     return return_value
+
+def add_question(text, type, sway):
+    dict = {
+        "question_text":text,
+        "type":type,
+        "sway":sway
+    }
+    config.append_question(dict)
+
+    return 0
