@@ -3,10 +3,8 @@
 var XScore = 250;
 var YScore = 270;
 
-//Json config
 var jsonConfig;
 
-// Current question.
 var currentQuestionCounter = 0;
 
 // Map that stores the users answers.
@@ -57,7 +55,6 @@ function previousQuestion() {
 
     $("#question-title").text(jsonConfig.question_list[currentQuestionCounter].question_text);
     $("#question-counter").text(currentQuestionCounter + 1);
-
     setRadioAnswer(answerMap.get(currentQuestionCounter).ans);
 }
 

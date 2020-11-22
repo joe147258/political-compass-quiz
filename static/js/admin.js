@@ -31,6 +31,4 @@ $("#new_ques").submit(function(e) {
                alert(data.success); // show response from the php script.
            }
          });
-
-    
 });
