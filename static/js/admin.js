@@ -104,7 +104,7 @@ function setTypeAndSway(type, sway) {
             if(sway == "left") {
                 $("#edit_sway_select").val($("#edit_sway_select option:first").val());
             } else {
-                $("#edit_sway_select").val($("#edit_sway_select option:eq(2)").val());
+                $("#edit_sway_select").val($("#edit_sway_select option:eq(1)").val());
             }
         }
     } else if(type === 'social') {
@@ -115,11 +115,11 @@ function setTypeAndSway(type, sway) {
         if(!SocialConst.includes(sway)) {
             return 0;
         } else {
-            $("#edit_type_select").val($("#edit_type_select option:eq(2)").val());
+            $("#edit_type_select").val($("#edit_type_select option:eq(1)").val());
             if(sway == "auth") {
                 $("#edit_sway_select").val($("#edit_sway_select option:first").val());
             } else {
-                $("#edit_sway_select").val($("#edit_sway_select option:eq(2)").val());
+                $("#edit_sway_select").val($("#edit_sway_select option:eq(1)").val());
             }
         }
     } else {
