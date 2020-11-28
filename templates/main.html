@@ -1,48 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <!--Bootstrap-->
-    <link href="{{ url_for('static', filename='bootstrap/bootstrap.min.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{ url_for('static', filename='css/main.css')}}" rel="stylesheet"/>
-    <title>Politcal Compass Test</title>
-</head>
-<body>
-    <div class="m-auto main-container">
-        <div class="p-3 mb-2 bg-primary text-white text-center">
-            <h3>Political Compass Quiz</h3>
-        </div>
-        <div id="intro-text" class="text-black p-3">
-            <p>
-                {{ intro_text }}
-                <div class="text-center">
-                    <button class="btn btn-primary" onclick="startQuiz()">Click here to begin</button>
-                </div>
-            </p>
-        </div>
-        <div id="question-container" class="text-black text-left p-3">
-            <div class="d-inline-block text-left mb-5">
-                <h5 id="question-title">Question Title</h5>
-                <label class="d-block"><input id="SA" type="radio" name="question-radio" value="2"> Strongly Agree</label>
-                <label class="d-block"><input id="A" type="radio" name="question-radio" value="1"> Agree</label>
-                <label class="d-block"><input id="neutral" type="radio" name="question-radio" value="0" checked> Neutral</label>
-                <label class="d-block"><input id="D" type="radio" name="question-radio" value="-1"> Disagree</label>
-                <label class="d-block"><input id="SD" type="radio" name="question-radio" value="-2"> Strongly Disagree</label>
-            </div>
-            <p class="text-center font-weight-bold p-3">
-                <span id="question-counter">0</span> / <span id="question-counter-max">0</span>
-            </p>
-            <div class="btn-group btn-block div-footer">
-                <button type="button" class="btn btn-primary square w-50" onclick="previousQuestion()">Back</button>
-                <button id="next-btn" type="button" class="btn btn-primary square w-50" onclick="nextQuestion()">Next</button>
-                <button id="submit-btn" type="button" class="btn btn-primary square w-50" onclick="submitAnswer()">Submit</button>
-            </div>
+{% extends "layout.html" %}
+{% block header %}Political Compass Quiz{% endblock %}
+
+{% block content %}
+<div id="intro-text" class="text-black p-3">
+    <p>
+        {{ intro_text }}
+    </p>
+    <div class="text-center div-footer">
+        <button class="btn btn-primary square btn-block begin-button" onclick="startQuiz()">Click here to begin</button>
     </div>
-</body>
-<!--Bootstrap and jQuery-->
-<script src="{{ url_for('static', filename='bootstrap/jquery-3.5.1.min.js')}}"></script>
-<script src="{{ url_for('static', filename='bootstrap/bootstrap.min.js')}}"></script>
+</div>
+<div id="question-container" class="text-black text-left p-3">
+    <div class="d-inline-block text-left mb-5">
+        <h5 id="question-title">Question Title</h5>
+        <label class="d-block"><input id="SA" type="radio" name="question-radio" value="2"> Strongly Agree</label>
+        <label class="d-block"><input id="A" type="radio" name="question-radio" value="1"> Agree</label>
+        <label class="d-block"><input id="neutral" type="radio" name="question-radio" value="0" checked> Neutral</label>
+        <label class="d-block"><input id="D" type="radio" name="question-radio" value="-1"> Disagree</label>
+        <label class="d-block"><input id="SD" type="radio" name="question-radio" value="-2"> Strongly Disagree</label>
+    </div>
+    <p class="text-center font-weight-bold p-3">
+        <span id="question-counter">0</span> / <span id="question-counter-max">0</span>
+    </p>
+    <div class="btn-group btn-block div-footer">
+        <button type="button" class="btn btn-primary square w-50" onclick="previousQuestion()">Back</button>
+        <button id="next-btn" type="button" class="btn btn-primary square w-50" onclick="nextQuestion()">Next</button>
+        <button id="submit-btn" type="button" class="btn btn-primary square w-50" onclick="submitAnswer()">Submit</button>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
 <script src="{{ url_for('static', filename='js/main.js')}}"></script>
 <script>
     loadJson("{{ config_json }}", "{{ question_list }}");
 </script>
-</html>
+{% endblock %}

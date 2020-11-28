@@ -1,8 +1,8 @@
 import json
 
-# This file parses data from config.json.
+# This file parses data from different json files.
 # This is used to tweek elements without 
-# having to relaunch the server.
+# having to relaunch the server. As well as persistance.
 
 def config():
     file = open('json/config.json')

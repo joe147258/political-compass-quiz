@@ -12,6 +12,10 @@ CONST_SOCIAL = ['lib', 'auth']
 def home():
     return render_template('main.html', config_json = json_parser.config(), intro_text = json_parser.intro_text(), question_list = json_parser.question_list());
 
+@quiz_controller.route('/layout')
+def layout():
+    return render_template('layout.html');
+
 @quiz_controller.route('/finish-quiz')
 def finish():
     try:

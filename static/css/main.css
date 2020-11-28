@@ -1,11 +1,10 @@
 :root {
-    --main: #7A49A5;
-    --main-hover: #BCA4D2;
+    --main: #348CCC;
+    --main-hover: #70aedb;
 }
 
 .main-container {
     width: 650px; 
-    /*height: 650px;*/ 
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     margin-top: 2rem!important;
 }
@@ -17,21 +16,37 @@
     text-align: center;
 }
 
+.inner-container {
+    height: 420px;
+}
 .square {
     border-radius: 0px!important;
 }
 
+.begin-button {
+    width: 650px !important;
+}
+.scrolldiv {
+    overflow-y:scroll;
+    height: 90%;
+}
 #question-container {
     display: none;
-    min-height: 350px;
     position: relative;
+    height: 100%;
 }
 
 #question-title {
     min-height: 96px;
 }
+
 #submit-btn {
     display: none;
+}
+
+#intro-text {
+    position: relative;
+    height: 100%;
 }
 
 /* ---Bootstrap overrides--- */

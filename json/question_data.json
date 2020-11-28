@@ -1,1 +1,19 @@
-{"question_list": [{"question_text": "Land shouldnt be a commodity to be bought and sold.", "type": "economic", "sway": "left"}, {"question_text": "The rich are too highly taxed.", "type": "economic", "sway": "right"}, {"question_text": "The freer the market, the freer the people.", "type": "social", "sway": "lib"}, {"question_text": "Because corporations cannot be trusted to voluntarily protect the environment, they require regulation.", "type": "social", "sway": "auth"}, {"question_text": "test test", "type": "social", "sway": "auth"}]}
+{
+    "question_list": [{
+        "question_text": "Land shouldnt be a commodity to be bought and sold.",
+        "type": "economic",
+        "sway": "left"
+    }, {
+        "question_text": "The rich are too highly taxed.",
+        "type": "economic",
+        "sway": "right"
+    }, {
+        "question_text": "The freer the market, the freer the people.",
+        "type": "social",
+        "sway": "lib"
+    }, {
+        "question_text": "Because corporations cannot be trusted to voluntarily protect the environment, they require regulation.",
+        "type": "social",
+        "sway": "auth"
+    }]
+}

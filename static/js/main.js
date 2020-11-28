@@ -183,6 +183,11 @@ function loadJson(jsonData, questionList) {
     questionList = questionList.replaceAll("&#39;", "\"");
     jsonConfig = JSON.parse(jsonData);
     jsonQuestionList = JSON.parse(questionList);
+    // formats strings
+    for (let i = 0; i < jsonQuestionList.length; i++) {
+        jsonQuestionList[i].question_text = jsonQuestionList[i].question_text.replaceAll("&#34;", "\"")
+        jsonQuestionList[i].question_text = jsonQuestionList[i].question_text.replaceAll("&#39;", "'")
+    }
 }
 
 

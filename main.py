@@ -1,12 +1,15 @@
 import flask_login
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory
 from controller.quiz_controller import quiz_controller
 from flask_login import LoginManager, UserMixin
 from utilities import json_parser, util
+import os
 
 # App set up
 login_manager = LoginManager()
+
 app = Flask(__name__)
+
 login_manager.init_app(app)
 app.secret_key = 'key'
 
@@ -73,6 +76,10 @@ def logout():
 def unauthorized_callback():
     return redirect('/login')
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static/icons'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
 if __name__ == '__main__':
     app.run(debug=True)
-
