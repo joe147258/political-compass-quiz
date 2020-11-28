@@ -35,11 +35,11 @@
 </div>
 <div class="position-relative" style="height: 10%;">
     <div class="div-footer w-100">
-        <button class="btn btn-primary square btn-block" data-toggle="modal" data-target="#form-modal">Add
+        <button class="btn btn-primary square btn-block" data-toggle="modal" data-target="#add-modal">Add
             Question</button>
     </div>
 </div>
-<div class="modal" id="form-modal" tabindex="-1" role="dialog">
+<div class="modal" id="add-modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -66,6 +66,44 @@
                         <select name="sway" form="new_ques" class="custom-select ">
                             <option id="sway1" value="left">Left</option>
                             <option id="sway2" value="right">Right</option>
+                        </select>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Add Question</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal" id="edit-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="form-title">Edit Question</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" id="edit_ques">
+                    <div class="form-group">
+                        <label class="col-form-label">Question:</label>
+                        <textarea id="edit_ques_text" class="form-control" name="question_text" form="edit_ques"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Type:</label>
+                        <select name="type" form="edit_ques" id="edit_type_select" class="custom-select">
+                            <option value="economic">Economic</option>
+                            <option value="social">Social</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Sway:</label>
+                        <select name="sway" form="edit_ques" class="custom-select" id="edit_sway_select">
+                            <option id="edit_sway1" value="left">Left</option>
+                            <option id="edit_sway2" value="right">Right</option>
                         </select>
                     </div>
             </div>

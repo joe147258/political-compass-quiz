@@ -1,3 +1,6 @@
+const EconomicConst = ['left', 'right']
+const SocialConst = ['auth', 'lib']
+
 $('#type_select').change(function () {
     if ($('#type_select').val() == 'social') {
         $('#sway1').val('auth');
@@ -22,7 +25,7 @@ $("#new_ques").submit(function (e) {
         success: function (data) {
             $("table").load(" table > *");
             $('#new_ques').trigger("reset");
-            $('#form-modal').modal('hide');
+            $('#add-modal').modal('hide');
             $("#type_select").val($("#type_select option:first").val());
             $('#sway1').val('left');
             $('#sway1').text('Left');
@@ -50,4 +53,76 @@ function deleteQuestion(pos) {
             alert("Something went wrong!");
         }
     });
+}
+
+function editQuestion(pos) {
+    console.log(pos)
+    $('#edit-modal').modal('show');
+    $.ajax({
+        type: "GET",
+        url: "/get-question-info?pos=" + pos,
+        success: function (data) {
+            $("#edit_ques_text").val(data.question_text)
+            setTypeAndSway(data.type, data.sway)
+        },
+        error: function (data) {
+            alert("Something went wrong!");
+        }
+    });
+    
+
+}
+
+function editRequest() {
+    $.ajax({
+        type: "POST",
+        url: "/edit-question",
+        data: {
+            "pos": pos,
+            "form": form.serialize()
+        },
+        success: function (data) {
+            $("table").load(" table > *");
+            $('#new_ques').trigger("reset");
+        },
+        error: function (data) {
+            alert("Something went wrong!");
+        }
+    });
+}
+
+function setTypeAndSway(type, sway) {
+    if(type === 'economic') {
+        $('#edit_sway1').val('left');
+        $('#edit_sway1').text('Left');
+        $('#edit_sway2').val('right');
+        $('#edit_sway2').text('Right');
+        if(!EconomicConst.includes(sway)) {
+            return 0;
+        } else {
+            $("#edit_type_select").val($("#edit_type_select option:first").val());
+            if(sway == "left") {
+                $("#edit_sway_select").val($("#edit_sway_select option:first").val());
+            } else {
+                $("#edit_sway_select").val($("#edit_sway_select option:eq(2)").val());
+            }
+        }
+    } else if(type === 'social') {
+        $('#edit_sway1').val('auth');
+        $('#edit_sway1').text('Auth');
+        $('#edit_sway2').val('lib');
+        $('#edit_sway2').text('Lib');
+        if(!SocialConst.includes(sway)) {
+            return 0;
+        } else {
+            $("#edit_type_select").val($("#edit_type_select option:eq(2)").val());
+            if(sway == "auth") {
+                $("#edit_sway_select").val($("#edit_sway_select option:first").val());
+            } else {
+                $("#edit_sway_select").val($("#edit_sway_select option:eq(2)").val());
+            }
+        }
+    } else {
+        return 0;
+    }
 }
