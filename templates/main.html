@@ -43,6 +43,6 @@
 <script src="{{ url_for('static', filename='bootstrap/bootstrap.min.js')}}"></script>
 <script src="{{ url_for('static', filename='js/main.js')}}"></script>
 <script>
-    loadJson("{{ config_json }}");
+    loadJson("{{ config_json }}", "{{ question_list }}");
 </script>
 </html>

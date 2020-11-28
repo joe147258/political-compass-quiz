@@ -2,7 +2,7 @@ import flask_login
 from flask import Flask, render_template, request, redirect, url_for
 from controller.quiz_controller import quiz_controller
 from flask_login import LoginManager, UserMixin
-from utilities import config, util
+from utilities import json_parser, util
 
 # App set up
 login_manager = LoginManager()
@@ -14,7 +14,7 @@ app.secret_key = 'key'
 app.register_blueprint(quiz_controller)
 
 # Admin Page access
-users = { config.admin_name():{'pw':config.admin_password()} }
+users = { json_parser.admin_name():{'pw':json_parser.admin_password()} }
 
 class User(UserMixin):
   pass
@@ -47,7 +47,6 @@ def request_loader(request):
 def login():
     if request.method == 'POST':
         username = request.form.get('username').lower()
-        print(username)
         try:
             if util.hash_string(request.form.get('pw')) == users[username]['pw']:
                 user = User()
@@ -62,7 +61,7 @@ def login():
 @app.route('/admin')
 @flask_login.login_required
 def admin():
-    question_list = config.question_list()
+    question_list = json_parser.question_list()
     return render_template('admin.html', len = len(question_list), question_list = question_list)
 
 @app.route('/logout')

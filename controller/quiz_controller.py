@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, Blueprint, url_for, jsonify
 from utilities import util
-from utilities import config
+from utilities import json_parser
 
 quiz_controller = Blueprint('quiz_controller', __name__, template_folder='templates')
 # Constants that are used to ensure data
@@ -10,7 +10,7 @@ CONST_SOCIAL = ['lib', 'auth']
 
 @quiz_controller.route('/')
 def home():
-    return render_template('main.html', config_json = config.config(), intro_text = config.intro_text());
+    return render_template('main.html', config_json = json_parser.config(), intro_text = json_parser.intro_text(), question_list = json_parser.question_list());
 
 @quiz_controller.route('/finish-quiz')
 def finish():

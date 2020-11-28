@@ -5,6 +5,8 @@ var YScore = 270;
 
 var jsonConfig;
 
+var jsonQuestionList;
+
 var currentQuestionCounter = 0;
 
 // Map that stores the users answers.
@@ -26,23 +28,23 @@ function startQuiz() {
 
 function nextQuestion() {
     currentQuestionCounter++;
-    if(currentQuestionCounter > jsonConfig.question_list.length - 1) {
-        currentQuestionCounter = jsonConfig.question_list.length - 1;
+    if(currentQuestionCounter > jsonQuestionList.length - 1) {
+        currentQuestionCounter = jsonQuestionList.length - 1;
         return 0;
     }
 
-    if(currentQuestionCounter >= jsonConfig.question_list.length - 1) {
+    if(currentQuestionCounter >= jsonQuestionList.length - 1) {
         $("#next-btn").hide();
         $("#submit-btn").show();
     }
 
-    $("#question-title").text(jsonConfig.question_list[currentQuestionCounter].question_text);
+    $("#question-title").text(jsonQuestionList[currentQuestionCounter].question_text);
     $("#question-counter").text(currentQuestionCounter + 1);
     setRadioAnswer(answerMap.get(currentQuestionCounter).ans);
 }
 
 function previousQuestion() {
-    if (currentQuestionCounter == jsonConfig.question_list.length - 1) {
+    if (currentQuestionCounter == jsonQuestionList.length - 1) {
         $("#next-btn").show();
         $("#submit-btn").hide();
     }
@@ -53,7 +55,7 @@ function previousQuestion() {
         return 0;
     }
 
-    $("#question-title").text(jsonConfig.question_list[currentQuestionCounter].question_text);
+    $("#question-title").text(jsonQuestionList[currentQuestionCounter].question_text);
     $("#question-counter").text(currentQuestionCounter + 1);
     setRadioAnswer(answerMap.get(currentQuestionCounter).ans);
 }
@@ -141,12 +143,12 @@ $('input:radio[name="question-radio"]').change(
 /* -----Private functions----- */
 
 function loadQuestions() {
-    $("#question-title").text(jsonConfig.question_list[0].question_text);
+    $("#question-title").text(jsonQuestionList[0].question_text);
     $("#question-counter").text("1");
-    $("#question-counter-max").text(jsonConfig.question_list.length);
+    $("#question-counter-max").text(jsonQuestionList.length);
 
-    for(let i = 0; i < jsonConfig.question_list.length; i++) {
-        answerMap.set(i, {ans: 0, type: jsonConfig.question_list[i].type, sway: jsonConfig.question_list[i].sway})
+    for(let i = 0; i < jsonQuestionList.length; i++) {
+        answerMap.set(i, {ans: 0, type: jsonQuestionList[i].type, sway: jsonQuestionList[i].sway})
     } 
 }
 
@@ -176,12 +178,11 @@ function setRadioAnswer(ans) {
 
 // This function is called from main.html, sets the var jsonConfig to valid json.
 // replaces quote symbol from server to actual quotes
-function loadJson(jsonData){
-    //let symbols = (jsonData.match(new RegExp("&#39;", "g")) || []).length;
-    //jsonData = encodeURI(jsonData);
+function loadJson(jsonData, questionList) {
     jsonData = jsonData.replaceAll("&#39;", "\"");
-    console.log(jsonData);
+    questionList = questionList.replaceAll("&#39;", "\"");
     jsonConfig = JSON.parse(jsonData);
+    jsonQuestionList = JSON.parse(questionList);
 }
 
 

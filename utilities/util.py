@@ -2,7 +2,7 @@ from PIL import Image, ImageDraw
 from threading import Thread
 from time import sleep
 import os
-from utilities import config
+from utilities import json_parser
 from hashlib import sha256
 
 # util.py is a class used for static methods that are used throughout the project
@@ -45,7 +45,7 @@ def delete_image(image_path):
 # Waits x seconds before deleting an image (enough time to load the page)
 # param - image_path: The path of the image
 def delete_image_thread(image_path):
-    sleep(config.image_delete_time())
+    sleep(json_parser.image_delete_time())
     os.remove(image_path)
 
 def hash_string(to_hash):
@@ -59,6 +59,6 @@ def add_question(text, type, sway):
         "type":type,
         "sway":sway
     }
-    config.append_question(dict)
+    json_parser.append_question(dict)
 
     return 0
