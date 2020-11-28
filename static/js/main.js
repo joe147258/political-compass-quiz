@@ -28,12 +28,12 @@ function startQuiz() {
 
 function nextQuestion() {
     currentQuestionCounter++;
-    if(currentQuestionCounter > jsonQuestionList.length - 1) {
+    if (currentQuestionCounter > jsonQuestionList.length - 1) {
         currentQuestionCounter = jsonQuestionList.length - 1;
         return 0;
     }
 
-    if(currentQuestionCounter >= jsonQuestionList.length - 1) {
+    if (currentQuestionCounter >= jsonQuestionList.length - 1) {
         $("#next-btn").hide();
         $("#submit-btn").show();
     }
@@ -50,7 +50,7 @@ function previousQuestion() {
     }
 
     currentQuestionCounter--;
-    if(currentQuestionCounter < 0) {
+    if (currentQuestionCounter < 0) {
         currentQuestionCounter = 0;
         return 0;
     }
@@ -62,14 +62,14 @@ function previousQuestion() {
 
 function submitAnswer() {
     //stop the user messing this up
-    $("button").attr('disabled','disabled');
-    $("input").attr('disabled','disabled');
+    $("button").attr('disabled', 'disabled');
+    $("input").attr('disabled', 'disabled');
     setRadioAnswer(0);
 
     console.log(answerMap);
-    for(let i = 0; i < answerMap.size; i++) {
-        if(answerMap.get(i).type == "social") {
-            switch(parseInt(answerMap.get(i).ans)) {
+    for (let i = 0; i < answerMap.size; i++) {
+        if (answerMap.get(i).type == "social") {
+            switch (parseInt(answerMap.get(i).ans)) {
                 case -2:
                     if (answerMap.get(i).sway == "auth") {
                         YScore += jsonConfig.big_y_movement;
@@ -99,8 +99,8 @@ function submitAnswer() {
                     }
                     break;
             }
-        } else if(answerMap.get(i).type == "economic") {
-            switch(parseInt(answerMap.get(i).ans)) {
+        } else if (answerMap.get(i).type == "economic") {
+            switch (parseInt(answerMap.get(i).ans)) {
                 case -2:
                     if (answerMap.get(i).sway == "left") {
                         XScore += jsonConfig.big_y_movement;
@@ -136,7 +136,7 @@ function submitAnswer() {
 }
 
 $('input:radio[name="question-radio"]').change(
-    function(){
+    function () {
         answerMap.get(currentQuestionCounter).ans = $('input[name="question-radio"]:checked').val();
     });
 
@@ -147,17 +147,21 @@ function loadQuestions() {
     $("#question-counter").text("1");
     $("#question-counter-max").text(jsonQuestionList.length);
 
-    for(let i = 0; i < jsonQuestionList.length; i++) {
-        answerMap.set(i, {ans: 0, type: jsonQuestionList[i].type, sway: jsonQuestionList[i].sway})
-    } 
+    for (let i = 0; i < jsonQuestionList.length; i++) {
+        answerMap.set(i, {
+            ans: 0,
+            type: jsonQuestionList[i].type,
+            sway: jsonQuestionList[i].sway
+        })
+    }
 }
 
 function setRadioAnswer(ans) {
     $('[name="question-radio"]').prop('checked', false);
-    if(typeof(ans) != "number") {
+    if (typeof (ans) != "number") {
         ans = parseInt(ans);
     }
-    switch(ans) {
+    switch (ans) {
         case -2:
             $('#SD').prop('checked', true);
             break;
@@ -189,5 +193,3 @@ function loadJson(jsonData, questionList) {
         jsonQuestionList[i].question_text = jsonQuestionList[i].question_text.replaceAll("&#39;", "'")
     }
 }
-
-
