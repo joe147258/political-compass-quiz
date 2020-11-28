@@ -2,6 +2,7 @@
 
 ## About
 A small political compass quiz project to test Python web and image manipulation libraries.   
+The admin password is P@55word but can be changed in  json/admin_user (note: sha256 is used to hash).
 
 ## Technologies used:
 * Python 3.8.5+  

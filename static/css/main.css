@@ -1,6 +1,8 @@
 :root {
     --main: #348CCC;
-    --main-hover: #70aedb;
+    --main-hover: #24628e;
+    --secondary: #91B0C6;
+    --secondary-hover: #657B8A;
 }
 
 .main-container {
@@ -60,4 +62,14 @@
 }
 .btn-primary:hover {
     background-color: var(--main-hover)!important;
+}
+.bg-secondary {
+    background-color: var(--secondary)!important;
+}
+.btn-secondary {
+    background-color: var(--secondary)!important;
+    border: none!important;
+}
+.btn-secondary:hover {
+    background-color: var(--secondary-hover)!important;
 }

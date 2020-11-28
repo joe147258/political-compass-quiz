@@ -7,33 +7,73 @@
 <div class="scrolldiv">
     <table class="table table-striped">
         <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Question</th>
-            <th scope="col">Type</th>
-            <th scope="col">Sway</th>
-            <th scope="col">Modify</th>
-        </tr>
-        </thead>
-        <tbody>  
-            {%for i in range(0, len)%} 
             <tr>
-                <td>{{i+1}}.</td> 
-                <td>{{question_list[i]['question_text']}}</td> 
-                <td>{{question_list[i]['type']}}</td> 
-                <td>{{question_list[i]['sway']}}</td> 
+                <th scope="col">#</th>
+                <th scope="col">Question</th>
+                <th scope="col">Type</th>
+                <th scope="col">Sway</th>
+                <th scope="col">Modify</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for i in range(0, len)%}
+            <tr>
+                <td>{{i+1}}.</td>
+                <td>{{question_list[i]['question_text']}}</td>
+                <td>{{question_list[i]['type']}}</td>
+                <td>{{question_list[i]['sway']}}</td>
                 <td>
-                   <a href="#" onclick="editQuestion('{{i}}')"><img src="{{ url_for('static', filename='icons/edit-24px.svg')}}" /></a>
-                   <a href="#" onclick="editQuestion('{{i}}')"><img src="{{ url_for('static', filename='icons/delete-24px.svg')}}" /></a>
-                </td> 
-            </tr> 
-            {%endfor%} 
+                    <a href="#" onclick="editQuestion('{{i}}')"><img
+                            src="{{ url_for('static', filename='icons/edit-24px.svg')}}" /></a>
+                    <a href="#" onclick="editQuestion('{{i}}')"><img
+                            src="{{ url_for('static', filename='icons/delete-24px.svg')}}" /></a>
+                </td>
+            </tr>
+            {%endfor%}
         </tbody>
     </table>
 </div>
 <div class="position-relative" style="height: 10%;">
     <div class="div-footer w-100">
-        <button class="btn btn-primary square btn-block" onclick="addQuestion()">Add Question</button>
+        <button class="btn btn-primary square btn-block" data-toggle="modal" data-target="#form-modal">Add Question</button>
+    </div>
+</div>
+<div class="modal" id="form-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="form-title">New Question</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label class="col-form-label">Question:</label>
+                        <textarea class="form-control" id="message-text"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Type:</label>
+                        <select name="type" form="new_ques" id="type_select" class="custom-select">
+                            <option value="economic">Economic</option>
+                            <option value="social">Social</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Sway:</label>
+                        <select name="sway" form="new_ques" class="custom-select ">
+                            <option id="sway1" value="left">Left</option>
+                            <option id="sway2" value="right">Right</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Add Question</button>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
