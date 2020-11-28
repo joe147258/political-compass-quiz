@@ -62,3 +62,9 @@ def add_question(text, type, sway):
     json_parser.append_question(dict)
 
     return 0
+
+def delete_question(posistion):
+    new_list = json_parser.question_data()['question_list']
+    new_list.pop(posistion)
+    json_parser.replace_question_list(new_list)
+ 

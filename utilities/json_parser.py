@@ -30,6 +30,13 @@ def append_question(dict):
     with open('json/question_data.json', 'w') as fp:
         json.dump(data, fp)
 
+def replace_question_list(new_list):
+    data = question_data()
+    data['question_list'] = new_list
+    with open('json/question_data.json', 'w') as fp:
+        json.dump(data, fp)
+    
+
 def x_movement():
     return config()['x_movement']
 
