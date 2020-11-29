@@ -120,15 +120,5 @@ def edit_question():
     
     return "Success", 200
 
-@app.route('/get-question-info', methods=['GET'])
-def get_question_info():
-    try:
-        pos = int(request.args.get('pos'))
-        data = service.question_info(pos)
-    except Exception as e:
-        print(e)
-        return "Invalid Request", 400
-    return data
-
 if __name__ == '__main__':
     app.run(debug=True)

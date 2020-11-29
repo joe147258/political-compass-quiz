@@ -57,7 +57,7 @@ def hash_string(to_hash):
     hash_object = sha256(str.encode(to_hash))
     return_value = hash_object.hexdigest()
     return return_value
-    
+
 # Validates the data is correct and returns true if valid
 def validate_form_data(form_items):
     for key, val in form_items.items():
@@ -72,3 +72,29 @@ def validate_form_data(form_items):
     else:
         raise Exception('Invalid Values.')
     return True
+
+def determine_ideology_title(x_value, y_value):
+    boundries = json_parser.get_boundries()
+    possible_results = json_parser.get_ideologies()
+
+    if y_value < boundries['auth']:
+        if x_value < boundries['left']:
+            return possible_results['auth_left']
+        elif x_value > boundries['right']:
+            return possible_results['auth_right']
+        else:
+            return possible_results['auth_centre']
+    elif y_value > boundries['lib']:
+        if x_value < boundries['left']:
+            return possible_results['lib_left']
+        elif x_value > boundries['right']:
+            return possible_results['lib_right']
+        else:
+            return possible_results['lib_centre']
+    else:
+        if x_value < boundries['left']:
+            return possible_results['left']
+        elif x_value > boundries['right']:
+            return possible_results['right']
+        else:
+            return possible_results['central']

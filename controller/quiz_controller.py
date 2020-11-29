@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, Blueprint, url_for, jsonify
-from utilities import util
-from utilities import json_parser
+from utilities import util, json_parser, service
 
 quiz_controller = Blueprint('quiz_controller', __name__, template_folder='templates')
 
@@ -36,6 +35,7 @@ def finish():
     if y_value > 505:
         y_value = 505
 
+    title = util.determine_ideology_title(x_value, y_value)
     util.manipulate_image(x_value, y_value)
     path = 'static/images/image{0}{1}.png'
     formattedPath = path.format(x_value, y_value)
@@ -44,5 +44,15 @@ def finish():
     # X chosen in config.json
     util.delete_image(formattedPath)
 
-    return render_template('result.html', compass_image = formattedPath)
+    return render_template('result.html', compass_image = formattedPath, ideology = title)
+
+@quiz_controller.route('/get-question-info', methods=['GET'])
+def get_question_info():
+    try:
+        pos = int(request.args.get('pos'))
+        data = service.question_info(pos)
+    except Exception as e:
+        print(e)
+        return "Invalid Request", 400
+    return data
         

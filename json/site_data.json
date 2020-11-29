@@ -1,3 +1,14 @@
 {
-    "intro_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    "intro_text": "The underlying theory of the political compass model is that political ideology may be better measured along two separate, independent axes. The economic (left-right) axis measures one's opinion of how the economy should be run: 'left' is defined as the desire for the economy to be run by a cooperative collective agency (which can mean the state, but can also mean a network of communes) while 'right' is defined as the desire for the economy to be left to the devices of competing individuals and organizations. The other axis (authoritarian-libertarian) measures one's political opinions in a social sense, regarding the amount of personal freedom that one would allow: 'libertarianism' is defined as the belief that personal freedom should be maximised while 'authoritarianism' is defined as the belief that authority should be obeyed. The purpose of this project is to test where you are on a political compass through a series of questions.",
+    "ideologies": {
+        "auth_left": "Authoritarian Left",
+        "auth_centre": "Authoritarian Centrist",
+        "auth_right": "Authoritarian Right",
+        "right": "Classic Right",
+        "lib_right": "Libertarian Right",
+        "lib_centre": "Libertarian Centrist",
+        "lib_left": "Libertarian Left",
+        "left": "Classic Left",
+        "central": "Centrist"
+    }
 }

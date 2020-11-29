@@ -103,30 +103,30 @@ function submitAnswer() {
             switch (parseInt(answerMap.get(i).ans)) {
                 case -2:
                     if (answerMap.get(i).sway == "left") {
-                        XScore += jsonConfig.big_y_movement;
+                        XScore += jsonConfig.big_x_movement;
                     } else {
-                        XScore -= jsonConfig.big_y_movement;
+                        XScore -= jsonConfig.big_x_movement;
                     }
                     break;
                 case -1:
                     if (answerMap.get(i).sway == "left") {
-                        XScore += jsonConfig.small_y_movement;
+                        XScore += jsonConfig.small_x_movement;
                     } else {
-                        XScore -= jsonConfig.small_y_movement;
+                        XScore -= jsonConfig.small_x_movement;
                     }
                     break;
                 case 1:
                     if (answerMap.get(i).sway == "left") {
-                        XScore -= jsonConfig.big_y_movement;
+                        XScore -= jsonConfig.big_x_movement;
                     } else {
-                        XScore += jsonConfig.big_y_movement;
+                        XScore += jsonConfig.big_x_movement;
                     }
                     break;
                 case 2:
                     if (answerMap.get(i).sway == "left") {
-                        XScore -= jsonConfig.big_y_movement;
+                        XScore -= jsonConfig.big_x_movement;
                     } else {
-                        XScore += jsonConfig.big_y_movement;
+                        XScore += jsonConfig.big_x_movement;
                     }
                     break;
             }

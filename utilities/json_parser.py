@@ -36,7 +36,6 @@ def replace_question_list(new_list):
     with open('json/question_data.json', 'w') as fp:
         json.dump(data, fp)
     
-
 def x_movement():
     return config()['x_movement']
 
@@ -57,3 +56,9 @@ def admin_name():
     
 def admin_password():
     return admin_config()['password']
+
+def get_boundries():
+    return config()['boundries']
+
+def get_ideologies():
+    return site_data()['ideologies']

@@ -1,12 +1,12 @@
 :root {
-    --main: #348CCC;
-    --main-hover: #24628e;
-    --secondary: #91B0C6;
-    --secondary-hover: #657B8A;
+    --main: #4055c1;
+    --main-hover: #202a60;
+    --secondary: #67a2a2;
+    --secondary-hover: #036564;
 }
 
 .main-container {
-    width: 650px; 
+    width: 1000px; 
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     margin-top: 2rem!important;
 }
@@ -19,14 +19,14 @@
 }
 
 .inner-container {
-    height: 420px;
+    height: 700px;
 }
 .square {
     border-radius: 0px!important;
 }
 
 .begin-button {
-    width: 650px !important;
+    width: 1000px !important;
 }
 .scrolldiv {
     overflow-y:scroll;
