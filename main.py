@@ -5,11 +5,6 @@ from flask_login import LoginManager, UserMixin
 from utilities import json_parser, util, service
 import os
 
-# Constants that are used to ensure data
-# coming from the form is valid.
-CONST_ECONOMIC = ['left', 'right']
-CONST_SOCIAL = ['lib', 'auth']
-
 # App set up
 login_manager = LoginManager()
 
@@ -89,26 +84,11 @@ def favicon():
 @app.route('/submit-question', methods=['POST'])
 @flask_login.login_required
 def submit_question():
-    sway = request.form['sway']
-    question_type = request.form['type']
-    question = request.form['question_text']
     try:
-        # Validates the data is correct and if so adds the question
-        for key, val in request.form.items():
-            if len(val) <=0 or val is None:
-                raise Exception('Null or length 0.')
-
-        if question_type == 'economic':
-            if sway not in CONST_ECONOMIC:
-                raise Exception('Invalid Values.')
-        elif question_type == 'social':
-            if sway not in CONST_SOCIAL:
-                raise Exception('Invalid Values.')
-        else:
-            raise Exception('Invalid Values.')
-
-        service.add_question(question, question_type, sway)
-        
+        form_items = request.form
+        print(form_items)
+        if util.validate_form_data(form_items):
+            service.add_question(form_items)
     except Exception as e:
         print(e)
         return "Invalid Request", 400
@@ -120,7 +100,7 @@ def submit_question():
 def delete_question():
     try:
         position = int(request.form['pos'])
-        service.delete_question(position);
+        service.delete_question(position)
     except Exception as e:
         print(e)
         return "Invalid Request", 400
@@ -131,8 +111,9 @@ def delete_question():
 @flask_login.login_required
 def edit_question():
     try:
-        print(int(request.form['pos']))
-        print(request.form['form'])
+        form_items = request.form
+        if util.validate_form_data(form_items):
+            service.edit_question(form_items)
     except Exception as e:
         print(e)
         return "Invalid Request", 400

@@ -1,6 +1,8 @@
 const EconomicConst = ['left', 'right']
 const SocialConst = ['auth', 'lib']
 
+var WorkingPos = -1;
+
 $('#type_select').change(function () {
     if ($('#type_select').val() == 'social') {
         $('#sway1').val('auth');
@@ -15,9 +17,23 @@ $('#type_select').change(function () {
     }
 })
 
+$('#edit_type_select').change(function () {
+    if ($('#edit_type_select').val() == 'social') {
+        $('#edit_sway1').val('auth');
+        $('#edit_sway1').text('Auth');
+        $('#edit_sway2').val('lib');
+        $('#edit_sway2').text('Lib');
+    } else {
+        $('#edit_sway1').val('left');
+        $('#edit_sway1').text('Left');
+        $('#edit_sway2').val('right');
+        $('#edit_sway2').text('Right');
+    }
+})
+
 $("#new_ques").submit(function (e) {
     e.preventDefault();
-    var form = $(this);
+    let form = $(this);
     $.ajax({
         type: "POST",
         url: "/submit-question",
@@ -56,7 +72,6 @@ function deleteQuestion(pos) {
 }
 
 function editQuestion(pos) {
-    console.log(pos)
     $('#edit-modal').modal('show');
     $.ajax({
         type: "GET",
@@ -64,6 +79,7 @@ function editQuestion(pos) {
         success: function (data) {
             $("#edit_ques_text").val(data.question_text)
             setTypeAndSway(data.type, data.sway)
+            WorkingPos = pos;
         },
         error: function (data) {
             alert("Something went wrong!");
@@ -73,23 +89,26 @@ function editQuestion(pos) {
 
 }
 
-function editRequest() {
+$("#edit_ques").submit(function (e) {
+    e.preventDefault();
+    let form = $(this);
+    let requestForm = form.serializeArray();
+    requestForm.push({"name": "pos", "value": WorkingPos})
+    requestForm = serializeData(requestForm);
     $.ajax({
         type: "POST",
         url: "/edit-question",
-        data: {
-            "pos": pos,
-            "form": form.serialize()
-        },
+        data: requestForm,
         success: function (data) {
             $("table").load(" table > *");
-            $('#new_ques').trigger("reset");
+            $('#edit_ques').trigger("reset");
+            $('#edit-modal').modal('hide');
         },
         error: function (data) {
             alert("Something went wrong!");
         }
     });
-}
+});
 
 function setTypeAndSway(type, sway) {
     if(type === 'economic') {
@@ -125,4 +144,13 @@ function setTypeAndSway(type, sway) {
     } else {
         return 0;
     }
+}
+
+function serializeData(formArray) {
+    //serialize data function
+    var returnArray = {};
+    for (var i = 0; i < formArray.length; i++){
+        returnArray[formArray[i]['name']] = formArray[i]['value'];
+    }
+    return returnArray;
 }

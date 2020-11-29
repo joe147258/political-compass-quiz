@@ -8,6 +8,11 @@ from hashlib import sha256
 # util.py is a class used for static methods that are used throughout the project
 # Created to keep logic out of main.py
 
+# Constants that are used to ensure data
+# coming from the form is valid.
+CONST_ECONOMIC = ['left', 'right']
+CONST_SOCIAL = ['lib', 'auth']
+
 # Used to check if the params are valid
 # param - x_value: int between 0 - 500
 # param - y_value: int between 0 - 544
@@ -52,5 +57,18 @@ def hash_string(to_hash):
     hash_object = sha256(str.encode(to_hash))
     return_value = hash_object.hexdigest()
     return return_value
-
- 
+    
+# Validates the data is correct and returns true if valid
+def validate_form_data(form_items):
+    for key, val in form_items.items():
+        if len(val) <=0 or val is None:
+            raise Exception('Null or length 0.')
+    if form_items['type'] == 'economic':
+        if form_items['sway'] not in CONST_ECONOMIC:
+            raise Exception('Invalid Values.')
+    elif form_items['type'] == 'social':
+        if form_items['sway'] not in CONST_SOCIAL:
+            raise Exception('Invalid Values.')
+    else:
+        raise Exception('Invalid Values.')
+    return True
