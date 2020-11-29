@@ -99,7 +99,7 @@ def submit_question():
 def delete_question():
     try:
         pos = int(request.form['pos'])
-        util.cache_action(const, int(pos))
+        util.cache_action(const.DELETE_CONST, int(pos))
         service.delete_question(pos)
     except Exception as e:
         print(e)
@@ -126,13 +126,14 @@ def edit_question():
 def undo():
     try:
         data = JsonReadWrite.get_cache()
-        if data == const.NONE_CONST:
+        if data['cached_action'] == const.NONE_CONST:
             raise Exception('No Cache')
         else:
             service.restore_cached()
     except Exception as e:
         print(e)
-        return "No Cache", 100
+        JsonReadWrite.clear_cache()
+        return "No Cache", 400
     
     return "Success", 200
 

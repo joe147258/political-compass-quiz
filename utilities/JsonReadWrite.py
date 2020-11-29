@@ -26,14 +26,13 @@ def get_cache():
 
 def write_cache(cache_dict):
     data = get_cache()
-    data['cached_action']  = cache_dict
-    print(data)
+    data['cached_action'] = cache_dict
     with open('json/cache.json', 'w') as fp:
         json.dump(data, fp)
 
 def clear_cache():
     data = get_cache()
-    data['cached_action']  = const.JSON_NONE_CONST
+    data['cached_action']  = const.NONE_CONST
     with open('json/cache.json', 'w') as fp:
         json.dump(data, fp)
 

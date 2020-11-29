@@ -89,6 +89,19 @@ function editQuestion(pos) {
 
 }
 
+function undo() {
+    $.ajax({
+        type: "POST",
+        url: "/undo",
+        success: function () {
+            $("table").load(" table > *");
+        },
+        error: function () {
+            alert("Nothing to undo!");
+        }
+    });
+}
+
 $("#edit_ques").submit(function (e) {
     e.preventDefault();
     let form = $(this);

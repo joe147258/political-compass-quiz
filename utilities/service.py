@@ -30,9 +30,20 @@ def edit_question(form_items):
 def restore_cached():
     data = JsonReadWrite.get_cache()['cached_action']
     if data['cache_type'] == const.DELETE_CONST:
+        question_list = JsonReadWrite.question_list()
+        new_question_list = question_list[0:data['pos']]
+        restored_question = {
+            'question_text': data['question'],
+            'type': data['question_type'],
+            'sway': data['sway']
+        }
+        new_question_list.append(restored_question)
+        new_question_list = new_question_list + question_list[data['pos']:len(question_list)]
+        JsonReadWrite.replace_question_list(new_question_list)
+    elif data['cache_type'] == const.EDIT_CONST:
         question = question_info(data['pos'])
         print(question)
-    elif data['cache_type'] == const.EDIT_CONST:
-        print ("ya ya")
     else:
         raise Exception("Cache Error.")
+
+    JsonReadWrite.clear_cache()
