@@ -9,7 +9,7 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Question</th>
+                <th scope="col">Statement</th>
                 <th scope="col">Type</th>
                 <th scope="col">Sway</th>
                 <th scope="col">Modify</th>
@@ -33,10 +33,14 @@
         </tbody>
     </table>
 </div>
-<div class="position-relative" style="height: 10%;">
-    <div class="div-footer w-100">
+<div class="position-relative text-center" style="height: 10%;">
+    <a href="#" data-toggle="modal" data-target="#sway-modal">Explanation of Sway</a>
+    <div class="div-footer w-50">
         <button class="btn btn-primary square btn-block" data-toggle="modal" data-target="#add-modal">Add
-            Question</button>
+            Statement</button>
+    </div>
+    <div class="div-footer1 w-50">
+        <button class="btn btn-primary square btn-block">Undo Last Delete / Edit</button>
     </div>
 </div>
 <div class="modal" id="add-modal" tabindex="-1" role="dialog">
@@ -51,7 +55,7 @@
             <div class="modal-body">
                 <form method="POST" id="new_ques">
                     <div class="form-group">
-                        <label class="col-form-label">Question:</label>
+                        <label class="col-form-label">Statement:</label>
                         <textarea class="form-control" name="question_text" form="new_ques"></textarea>
                     </div>
                     <div class="form-group">
@@ -71,7 +75,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Add Question</button>
+                <button type="submit" class="btn btn-primary">Add Statement</button>
             </div>
             </form>
         </div>
@@ -81,7 +85,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="form-title">Edit Question</h5>
+                <h5 class="modal-title" id="form-title">Edit Statement</h5>
                 <button type="button" class="close" data-dismiss="modal">
                     <span>&times;</span>
                 </button>
@@ -89,7 +93,7 @@
             <div class="modal-body">
                 <form method="POST" id="edit_ques">
                     <div class="form-group">
-                        <label class="col-form-label">Question:</label>
+                        <label class="col-form-label">Statement:</label>
                         <textarea id="edit_ques_text" class="form-control" name="question_text" form="edit_ques"></textarea>
                     </div>
                     <div class="form-group">
@@ -113,6 +117,21 @@
             </div>
             </form>
         </div>
+    </div>
+</div>
+<div id="sway-modal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h3>Sway</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Sway is used to determine the political ideology a user will 'sway' towards if they agree with the statement. E.g. If the sway of a statement is left and the user agrees, they will be considered more left wing.</p>
+        </div>
+      </div>
     </div>
 </div>
 {% endblock %}

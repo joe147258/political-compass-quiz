@@ -7,10 +7,10 @@
     <p class="mb-0">Your Result:</p>
     <h2 class="mt-0">{{ ideology }}</h2>
     <hr>
-    <img class="m-auto" src="{{ compass_image }}" alt="Political Compass Result" width="400" height="435"/>
+    <img id="image" class="m-auto" src="{{ compass_image }}" alt="Political Compass Result" width="400" height="435"/>
 </div>
 {% endblock %}
 
 {% block javascript %}
-
+<script src="{{ url_for('static', filename='js/result.js')}}"></script>
 {% endblock %}

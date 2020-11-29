@@ -17,6 +17,12 @@
     bottom: 0;
     text-align: center;
 }
+.div-footer1 {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+}
 
 .inner-container {
     height: 700px;

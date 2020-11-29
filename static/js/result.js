@@ -1,0 +1,1 @@
+$("#image").on('error', function() { location.reload();});
