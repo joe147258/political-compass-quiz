@@ -2,7 +2,7 @@ import flask_login
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory
 from controller.quiz_controller import quiz_controller
 from flask_login import LoginManager, UserMixin
-from utilities import JsonReadWrite, util, service, UniversialConstants as const
+from utilities import json_manager, util, service, universal_constants as const, cache_manager
 import os
 
 # App set up
@@ -17,7 +17,7 @@ app.secret_key = 'key'
 app.register_blueprint(quiz_controller)
 
 # Admin Page access
-users = { JsonReadWrite.admin_name():{'pw':JsonReadWrite.admin_password()} }
+users = { json_manager.admin_name():{'pw':json_manager.admin_password()} }
 
 class User(UserMixin):
   pass
@@ -64,8 +64,8 @@ def login():
 @app.route('/admin')
 @flask_login.login_required
 def admin():
-    question_list = JsonReadWrite.question_list()
-    return render_template('admin.html', len = len(question_list), question_list = question_list)
+    question_list = json_manager.question_list()
+    return render_template('admin.html', len = len(question_list), question_list = question_list, undo_amount = len(cache_manager.cache_queue))
 
 @app.route('/logout')
 def logout():
@@ -99,13 +99,15 @@ def submit_question():
 def delete_question():
     try:
         pos = int(request.form['pos'])
-        util.cache_action(const.DELETE_CONST, int(pos))
+        cache_manager.cache_action(const.DELETE_CONST, int(pos))
         service.delete_question(pos)
     except Exception as e:
         print(e)
         return "Invalid Request", 400
-    
-    return "Success", 200
+    return_dict = {
+        "undo_amount": len(cache_manager.cache_queue)
+    }
+    return return_dict, 200
 
 @app.route('/edit-question', methods=['POST'])
 @flask_login.login_required
@@ -113,29 +115,28 @@ def edit_question():
     try:
         form_items = request.form
         if util.validate_form_data(form_items):
-            util.cache_action(const.EDIT_CONST, int(form_items['pos']))
+            cache_manager.cache_action(const.EDIT_CONST, int(form_items['pos']))
             service.edit_question(form_items)
     except Exception as e:
         print(e)
         return "Invalid Request", 400
-    
-    return "Success", 200
+    return_dict = {
+        "undo_amount": len(cache_manager.cache_queue)
+    }
+    return return_dict, 200
 
 @app.route('/undo', methods=['POST'])
-#@flask_login.login_required
+@flask_login.login_required
 def undo():
     try:
-        data = JsonReadWrite.get_cache()
-        if data['cached_action'] == const.NONE_CONST:
-            raise Exception('No Cache')
-        else:
-            service.restore_cached()
+        cache_manager.restore_last()    
     except Exception as e:
         print(e)
-        JsonReadWrite.clear_cache()
         return "No Cache", 400
-    
-    return "Success", 200
+    return_dict = {
+        "undo_amount": len(cache_manager.cache_queue)
+    }
+    return return_dict, 200
 
 if __name__ == '__main__':
     app.run(debug=True)

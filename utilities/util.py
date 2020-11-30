@@ -2,9 +2,9 @@ from PIL import Image, ImageDraw
 from threading import Thread
 from time import sleep
 import os
-from utilities import JsonReadWrite, service
+from utilities import json_manager, service
 from hashlib import sha256
-from utilities import UniversialConstants as const
+from utilities import universal_constants as const
 # util.py is a class used for static methods that are used throughout the project
 # Created to keep logic out of main.py
 
@@ -45,7 +45,7 @@ def delete_image(image_path):
 # Waits x seconds before deleting an image (enough time to load the page)
 # param - image_path: The path of the image
 def delete_image_thread(image_path):
-    sleep(JsonReadWrite.image_delete_time())
+    sleep(json_manager.image_delete_time())
     os.remove(image_path)
 
 def hash_string(to_hash):
@@ -69,8 +69,8 @@ def validate_form_data(form_items):
     return True
 
 def determine_ideology_title(x_value, y_value):
-    boundries = JsonReadWrite.get_boundries()
-    possible_results = JsonReadWrite.get_ideologies()
+    boundries = json_manager.get_boundries()
+    possible_results = json_manager.get_ideologies()
 
     if y_value < boundries['auth']:
         if x_value < boundries['left']:
@@ -93,16 +93,5 @@ def determine_ideology_title(x_value, y_value):
             return possible_results['right']
         else:
             return possible_results['central']
-
-def cache_action(cache_type, pos):
-    dict = service.question_info(pos)
-    cache_dict = {
-        "cache_type": cache_type,
-        "question": dict['question_text'],
-        "question_type": dict['type'],
-        "sway": dict['sway'],
-        "pos": pos
-    }
-    JsonReadWrite.write_cache(cache_dict)
     
 

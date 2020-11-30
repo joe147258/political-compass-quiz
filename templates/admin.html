@@ -40,7 +40,7 @@
             Statement</button>
     </div>
     <div class="div-footer1 w-50">
-        <button class="btn btn-primary square btn-block" onclick="undo()">Undo Last Delete / Edit</button>
+        <button class="btn btn-primary square btn-block" onclick="undo()">Undo delete / edit (<span id="undo-amount">0</span>)</button>
     </div>
 </div>
 <div class="modal" id="add-modal" tabindex="-1" role="dialog">
@@ -137,4 +137,9 @@
 {% endblock %}
 {% block javascript %}
 <script src="{{ url_for('static', filename='js/admin.js')}}"></script>
+<script>
+$( document ).ready(function() {
+    $('#undo-amount').text('{{ undo_amount }}')
+});
+</script>
 {% endblock %}

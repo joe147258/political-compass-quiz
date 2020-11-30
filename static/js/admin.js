@@ -64,9 +64,10 @@ function deleteQuestion(pos) {
         success: function (data) {
             $("table").load(" table > *");
             $('#new_ques').trigger("reset");
+            $("#undo-amount").text(data.undo_amount)
         },
         error: function (data) {
-            alert("Something went wrong!");
+            alert("Cannot Delete!");
         }
     });
 }
@@ -93,8 +94,9 @@ function undo() {
     $.ajax({
         type: "POST",
         url: "/undo",
-        success: function () {
-            $("table").load(" table > *");
+        success: function (data) {
+            $("table").load(" table > *");  
+            $("#undo-amount").text(data.undo_amount)
         },
         error: function () {
             alert("Nothing to undo!");
@@ -116,6 +118,7 @@ $("#edit_ques").submit(function (e) {
             $("table").load(" table > *");
             $('#edit_ques').trigger("reset");
             $('#edit-modal').modal('hide');
+            $("#undo-amount").text(data.undo_amount)
         },
         error: function (data) {
             alert("Something went wrong!");

@@ -1,5 +1,5 @@
 import json
-from utilities import UniversialConstants as const
+from utilities import universal_constants as const
 # This file parses data from different json files.
 # This is used to tweek elements without 
 # having to relaunch the server. As well as persistance.
@@ -8,7 +8,7 @@ def config():
     file = open('json/config.json')
     data = json.load(file)
     return data
-
+# 
 def site_data():
     file = open('json/site_data.json')
     data = json.load(file)
@@ -18,23 +18,6 @@ def question_data():
     file = open('json/question_data.json')
     data = json.load(file)
     return data
-
-def get_cache():
-    file = open('json/cache.json')
-    data = json.load(file)
-    return data
-
-def write_cache(cache_dict):
-    data = get_cache()
-    data['cached_action'] = cache_dict
-    with open('json/cache.json', 'w') as fp:
-        json.dump(data, fp)
-
-def clear_cache():
-    data = get_cache()
-    data['cached_action']  = const.NONE_CONST
-    with open('json/cache.json', 'w') as fp:
-        json.dump(data, fp)
 
 def admin_config():
     file = open('json/admin_user.json')

@@ -1,12 +1,12 @@
 from flask import Flask, render_template, request, redirect, Blueprint, url_for, jsonify
-from utilities import util, JsonReadWrite, service
+from utilities import util, json_manager, service
 
 quiz_controller = Blueprint('quiz_controller', __name__, template_folder='templates')
 
 @quiz_controller.route('/')
 def home():
-    return render_template('main.html', config_json = JsonReadWrite.config(), intro_text = JsonReadWrite.intro_text(), 
-                            question_list = JsonReadWrite.question_list(), project_text = JsonReadWrite.project_text());
+    return render_template('main.html', config_json = json_manager.config(), intro_text = json_manager.intro_text(), 
+                            question_list = json_manager.question_list(), project_text = json_manager.project_text());
 
 @quiz_controller.route('/layout')
 def layout():
