@@ -33,16 +33,26 @@
         </tbody>
     </table>
 </div>
+<p class="text-center" style="visibility: hidden; color: red;" id="alert-message">Nothing to undo</p>
 <div class="position-relative text-center" style="height: 10%;">
-    <a href="#" data-toggle="modal" data-target="#sway-modal">Explanation of Sway</a>
-    <div class="div-footer w-50">
-        <button class="btn btn-primary square btn-block" data-toggle="modal" data-target="#add-modal">Add
-            Statement</button>
-    </div>
-    <div class="div-footer1 w-50">
-        <button class="btn btn-primary square btn-block" onclick="undo()">Undo delete / edit (<span id="undo-amount">0</span>)</button>
+    <div class="div-footer w-100">
+        <div class="btn-group btn-block">
+            <button class="btn btn-secondary square w-50" onclick="redo()">
+                Redo delete / edit (<span id="redo-amount">0</span>)
+            </button>
+            <button class="btn btn-secondary square w-50" onclick="undo()">
+                Undo delete / edit (<span id="undo-amount">0</span>)
+            </button>
+        </div>
+        <div class="btn-group btn-block mt-0">
+            <button class="btn btn-primary square w-50" data-toggle="modal" data-target="#add-modal">Add
+                Statement
+            </button>
+            <button class="btn btn-primary square w-50" data-toggle="modal" data-target="#sway-modal">Additional Info</button>
+        </div>
     </div>
 </div>
+
 <div class="modal" id="add-modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -72,12 +82,14 @@
                             <option id="sway2" value="right">Right</option>
                         </select>
                     </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add Statement</button>
+                    </div>
+                </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Add Statement</button>
-            </div>
-            </form>
+
         </div>
     </div>
 </div>
@@ -94,7 +106,8 @@
                 <form method="POST" id="edit_ques">
                     <div class="form-group">
                         <label class="col-form-label">Statement:</label>
-                        <textarea id="edit_ques_text" class="form-control" name="question_text" form="edit_ques"></textarea>
+                        <textarea id="edit_ques_text" class="form-control" name="question_text"
+                            form="edit_ques"></textarea>
                     </div>
                     <div class="form-group">
                         <label class="col-form-label">Type:</label>
@@ -110,36 +123,42 @@
                             <option id="edit_sway2" value="right">Right</option>
                         </select>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Edit Question</button>
+                    </div>
+                </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Edit Question</button>
-            </div>
-            </form>
+
         </div>
     </div>
 </div>
 <div id="sway-modal" class="modal" tabindex="-1">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-            <h3>Sway</h3>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Sway</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Sway is used to determine the political ideology a user will 'sway' towards if they agree with the
+                    statement. E.g. If the sway of a statement is left and the user agrees, they will be considered more
+                    left wing.</p>
+            </div>
         </div>
-        <div class="modal-body">
-          <p>Sway is used to determine the political ideology a user will 'sway' towards if they agree with the statement. E.g. If the sway of a statement is left and the user agrees, they will be considered more left wing.</p>
-        </div>
-      </div>
     </div>
 </div>
 {% endblock %}
 {% block javascript %}
 <script src="{{ url_for('static', filename='js/admin.js')}}"></script>
 <script>
-$( document ).ready(function() {
-    $('#undo-amount').text('{{ undo_amount }}')
-});
+    $(document).ready(function () {
+        $('#undo-amount').text('{{ undo_amount }}')
+    });
+    $(document).ready(function () {
+        $('#redo-amount').text('{{ redo_amount }}')
+    });
 </script>
 {% endblock %}

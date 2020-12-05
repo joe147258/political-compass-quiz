@@ -15,16 +15,19 @@
         <button class="btn btn-primary square btn-block begin-button" onclick="startQuiz()">Click here to begin</button>
     </div>
 </div>
-<div id="question-container" class="text-black text-left p-3">
-    <div class="d-inline-block text-left mb-5">
+<div id="question-container" class="text-black text-center p-3">
+    <div class="d-inline-block mb-5 w-75">
         <h5 id="question-title">Question Title</h5>
-        <label class="d-block"><input id="SA" type="radio" name="question-radio" value="2"> Strongly Agree</label>
-        <label class="d-block"><input id="A" type="radio" name="question-radio" value="1"> Agree</label>
-        <label class="d-block"><input id="neutral" type="radio" name="question-radio" value="0" checked> Neutral</label>
-        <label class="d-block"><input id="D" type="radio" name="question-radio" value="-1"> Disagree</label>
-        <label class="d-block"><input id="SD" type="radio" name="question-radio" value="-2"> Strongly Disagree</label>
+        <hr>
+        <div class="text-left m-auto w-25" style="font-size: 20px">
+            <label class="d-block"><input id="SA" type="radio" name="question-radio" value="2"> Strongly Agree</label>
+            <label class="d-block"><input id="A" type="radio" name="question-radio" value="1"> Agree</label>
+            <label class="d-block"><input id="neutral" type="radio" name="question-radio" value="0" checked> Neutral</label>
+            <label class="d-block"><input id="D" type="radio" name="question-radio" value="-1"> Disagree</label>
+            <label class="d-block"><input id="SD" type="radio" name="question-radio" value="-2"> Strongly Disagree</label>
+        </div>
     </div>
-    <p class="text-center font-weight-bold p-3">
+    <p class="text-center font-weight-bold p-3 mt-3">
         <span id="question-counter">0</span> / <span id="question-counter-max">0</span>
     </p>
     <div class="btn-group btn-block div-footer">

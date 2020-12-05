@@ -16,7 +16,7 @@ app.secret_key = 'key'
 # Handles the quiz mappings and logic
 app.register_blueprint(quiz_controller)
 
-# Admin Page access
+# Admin Page access set up 
 users = { json_manager.admin_name():{'pw':json_manager.admin_password()} }
 
 class User(UserMixin):
@@ -65,7 +65,8 @@ def login():
 @flask_login.login_required
 def admin():
     question_list = json_manager.question_list()
-    return render_template('admin.html', len = len(question_list), question_list = question_list, undo_amount = len(cache_manager.cache_queue))
+    return render_template('admin.html', len = len(question_list), question_list = question_list, 
+                            undo_amount = len(cache_manager.undo_queue), redo_amount = len(cache_manager.redo_queue))
 
 @app.route('/logout')
 def logout():
@@ -105,7 +106,7 @@ def delete_question():
         print(e)
         return "Invalid Request", 400
     return_dict = {
-        "undo_amount": len(cache_manager.cache_queue)
+        "undo_amount": len(cache_manager.undo_queue)
     }
     return return_dict, 200
 
@@ -121,7 +122,7 @@ def edit_question():
         print(e)
         return "Invalid Request", 400
     return_dict = {
-        "undo_amount": len(cache_manager.cache_queue)
+        "undo_amount": len(cache_manager.undo_queue)
     }
     return return_dict, 200
 
@@ -129,12 +130,27 @@ def edit_question():
 @flask_login.login_required
 def undo():
     try:
-        cache_manager.restore_last()    
+        cache_manager.restore_undo()    
     except Exception as e:
         print(e)
         return "No Cache", 400
     return_dict = {
-        "undo_amount": len(cache_manager.cache_queue)
+        "undo_amount": len(cache_manager.undo_queue),
+        "redo_amount": len(cache_manager.redo_queue)
+    }
+    return return_dict, 200
+
+@app.route('/redo', methods=['POST'])
+@flask_login.login_required
+def redo():
+    try:
+        cache_manager.restore_undo()    
+    except Exception as e:
+        print(e)
+        return "No Cache", 400
+    return_dict = {
+        "undo_amount": len(cache_manager.undo_queue),
+        "redo_amount": len(cache_manager.redo_queue)
     }
     return return_dict, 200
 

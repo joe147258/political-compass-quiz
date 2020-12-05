@@ -67,7 +67,7 @@ function deleteQuestion(pos) {
             $("#undo-amount").text(data.undo_amount)
         },
         error: function (data) {
-            alert("Cannot Delete!");
+            showAlertMessage("Unable to delete.");
         }
     });
 }
@@ -97,9 +97,26 @@ function undo() {
         success: function (data) {
             $("table").load(" table > *");  
             $("#undo-amount").text(data.undo_amount)
+            $("#redo-amount").text(data.redo_amount)
         },
         error: function () {
-            alert("Nothing to undo!");
+            showAlertMessage("Nothing to undo.");
+        }
+    });
+}
+
+function redo() {
+    console.log("jere");
+    $.ajax({
+        type: "POST",
+        url: "/redo",
+        success: function (data) {
+            $("table").load(" table > *");
+            $("#undo-amount").text(data.undo_amount)  
+            $("#redo-amount").text(data.redo_amount)
+        },
+        error: function () {
+            showAlertMessage("Nothing to redo.");
         }
     });
 }
@@ -169,4 +186,11 @@ function serializeData(formArray) {
         returnArray[formArray[i]['name']] = formArray[i]['value'];
     }
     return returnArray;
+}
+
+async function showAlertMessage(text){
+    $("#alert-message").text(text);
+    $("#alert-message").css('visibility', 'visible');
+    setTimeout(function() { $("#alert-message").css('visibility', 'hidden'); }, 2000);
+
 }

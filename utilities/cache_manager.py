@@ -2,10 +2,9 @@ from utilities import service, json_manager, universal_constants as const
 from threading import Thread
 from time import sleep
 
-cache_queue = list()
+undo_queue = list()
+redo_queue = list()
 
-# Recall determines if the thread is calling itself twice
-# This prevents it being stop in a loop.
 def cache_action(cache_type, pos):
     dict = service.question_info(pos)
     cache_dict = {
@@ -15,22 +14,46 @@ def cache_action(cache_type, pos):
         "sway": dict['sway'],
         "pos": pos
     }
-    if(len(cache_queue) < const.CACHE_QUEUE_MAX_SIZE):
-        cache_queue.append(cache_dict)
+    if(len(undo_queue) < const.CACHE_QUEUE_MAX_SIZE):
+        undo_queue.append(cache_dict)
     else:
-        cache_queue.pop(0)
-        cache_queue.append(cache_dict)
+        undo_queue.pop(0)
+        undo_queue.append(cache_dict)
 
-def restore_last():
-    if len(cache_queue) == 0:
+def cache_redo(data):
+    if(len(redo_queue) < const.CACHE_QUEUE_MAX_SIZE):
+        redo_queue.append(data)
+    else:
+        redo_queue.pop(0)
+        redo_queue.append(data)
+
+def cache_undo(data):
+    if(len(undo_queue) < const.CACHE_QUEUE_MAX_SIZE):
+        undo_queue.append(data)
+    else:
+        undo_queue.pop(0)
+        undo_queue.append(data)
+
+def restore_redo():
+    if len(redo_queue) == 0:
         raise Exception("No Cache")
-    data = cache_queue.pop()
+
+    data = undo_queue.pop()
+    if data['cache_type'] == const.DELETE_CONST:
+        print("test")
+
+def restore_undo():
+    if len(undo_queue) == 0:
+        raise Exception("No Cache")
+
+    data = undo_queue.pop()
     question_list = json_manager.question_list()
     restored_question = {
             'question_text': data['question'],
             'type': data['question_type'],
             'sway': data['sway']
         }
+
     if data['cache_type'] == const.DELETE_CONST:
         new_question_list = question_list[0:data['pos']]
         new_question_list.append(restored_question)
