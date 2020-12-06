@@ -144,7 +144,7 @@ def undo():
 @flask_login.login_required
 def redo():
     try:
-        cache_manager.restore_undo()    
+        cache_manager.restore_redo()    
     except Exception as e:
         print(e)
         return "No Cache", 400

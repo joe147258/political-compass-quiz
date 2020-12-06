@@ -21,11 +21,20 @@ def cache_action(cache_type, pos):
         undo_queue.append(cache_dict)
 
 def cache_redo(data):
+    dict = service.question_info(data['pos'])
+    new_data = {
+        "cache_type": data['cache_type'],
+        "question": dict['question_text'],
+        "question_type": dict['type'],
+        "sway": dict['sway'],
+        "pos": data['pos']
+    }
+
     if(len(redo_queue) < const.CACHE_QUEUE_MAX_SIZE):
-        redo_queue.append(data)
+        redo_queue.append(new_data)
     else:
         redo_queue.pop(0)
-        redo_queue.append(data)
+        redo_queue.append(new_data)
 
 def cache_undo(data):
     if(len(undo_queue) < const.CACHE_QUEUE_MAX_SIZE):
@@ -38,15 +47,26 @@ def restore_redo():
     if len(redo_queue) == 0:
         raise Exception("No Cache")
 
-    data = undo_queue.pop()
+    data = redo_queue.pop()
+    print(data)
     if data['cache_type'] == const.DELETE_CONST:
-        print("test")
+        service.delete_question(data['pos'])
+    else:
+        question_list = json_manager.question_list()
+        restored_question = {
+                'question_text': data['question'],
+                'type': data['question_type'],
+                'sway': data['sway']
+            }
+        question_list[data['pos']] = restored_question
+        json_manager.replace_question_list(question_list)
 
 def restore_undo():
     if len(undo_queue) == 0:
         raise Exception("No Cache")
 
     data = undo_queue.pop()
+    cache_redo(data)
     question_list = json_manager.question_list()
     restored_question = {
             'question_text': data['question'],
